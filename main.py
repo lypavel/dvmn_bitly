@@ -18,7 +18,7 @@ def shorten_link(url: str, headers: dict) -> str | None:
 
 def count_clicks(link: str, headers: dict) -> int | None:
     parsed_link = urlparse(link)
-    bitlink = link = f"{parsed_link.netloc}{parsed_link.path}"
+    bitlink = f"{parsed_link.netloc}{parsed_link.path}"
     api_url = f"https://api-ssl.bitly.com/v4/bitlinks/{bitlink}/clicks/summary"
     
     response = rq.get(api_url, headers=headers)
