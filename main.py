@@ -51,13 +51,13 @@ if __name__ == "__main__":
         try:
             clicks_count = count_clicks(user_url, HEADERS)
         except rq.exceptions.HTTPError as http_error:
-            print(http_error)
+            exit(f"Невохможно получить информацию от сервера:\n{http_error}")
         else:
             print(f"Количество переходов: {clicks_count}")
     else:
         try:
             shortened_link = shorten_link(user_url, HEADERS)
         except rq.exceptions.HTTPError as http_error:
-            print(http_error)
+            exit(f"Невозможно получить информацию от сервера:\n{http_error}")
         else:
             print(f"Сокращённая ссылка: {shortened_link}")
