@@ -3,6 +3,7 @@ import os
 from urllib.parse import urlparse
 from dotenv import load_dotenv
 
+
 def shorten_link(url: str, headers: dict) -> str | None:
     api_url = "https://api-ssl.bitly.com/v4/shorten"
 
@@ -16,16 +17,18 @@ def shorten_link(url: str, headers: dict) -> str | None:
 
     return response.json().get("link")
 
+
 def count_clicks(link: str, headers: dict) -> int | None:
     parsed_link = urlparse(link)
     bitlink = f"{parsed_link.netloc}{parsed_link.path}"
     api_url = f"https://api-ssl.bitly.com/v4/bitlinks/{bitlink}/clicks/summary"
-    
+
     response = rq.get(api_url, headers=headers)
 
     response.raise_for_status()
 
     return response.json().get("total_clicks")
+
 
 def is_bitlink(url: str, headers: dict) -> bool:
     parsed_link = urlparse(url)
@@ -37,27 +40,25 @@ def is_bitlink(url: str, headers: dict) -> bool:
     return response.ok
 
 
-if __name__ == "__main__":
-
+def main():
     load_dotenv()
 
-    HEADERS = {
-            "Authorization": f"Bearer {os.environ["BITLY_TOKEN"]}"
+    headers = {
+        "Authorization": f"Bearer {os.environ["BITLY_TOKEN"]}"
     }
 
     user_url = input("Введите ссылку: ")
 
-    if is_bitlink(user_url, HEADERS):
-        try:
-            clicks_count = count_clicks(user_url, HEADERS)
-        except rq.exceptions.HTTPError as http_error:
-            exit(f"Невохможно получить информацию от сервера:\n{http_error}")
-        else:
-            print(f"Количество переходов: {clicks_count}")
+    if is_bitlink(user_url, headers):
+        clicks_count = count_clicks(user_url, headers)
+        print(f"Количество переходов: {clicks_count}")
     else:
-        try:
-            shortened_link = shorten_link(user_url, HEADERS)
-        except rq.exceptions.HTTPError as http_error:
-            exit(f"Невозможно получить информацию от сервера:\n{http_error}")
-        else:
-            print(f"Сокращённая ссылка: {shortened_link}")
+        shortened_link = shorten_link(user_url, headers)
+        print(f"Сокращённая ссылка: {shortened_link}")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except rq.exceptions.HTTPError as http_error:
+        exit(f"Невозможно получить информацию от сервера:\n{http_error}")
