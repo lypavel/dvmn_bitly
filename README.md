@@ -15,16 +15,19 @@ where `<your_bitly_token>` is your token.
 
 Python3 should already be installed. 
 Use `pip` (or `pip3`, if there is a conflict with Python2) to install dependencies:
-```
+```shell
 pip install -r requirements.txt
 ```
 
 ### Usage
 
-Run `main.py`.
-- If you enter a normal link into the console, it will be shortened to a `https://bit.ly/xxxxxxx` form.
-- If you enter a short link in the console of the form `https://bit.ly/xxxxxxx`, the number of clicks on it will be shown.
-- In case of incorrect input you will get an error message.
+```shell
+python3 main.py <user_url>
+```
+
+- If `<user_url>` is a normal link, it will be shortened to a `https://bit.ly/xxxxxxx` form.
+- If `<user_url>` is a short link of the form `https://bit.ly/xxxxxxx`, the number of clicks on it will be shown.
+- Otherwise you will get an error message.
 
 ### Project Goals
 
@@ -48,16 +51,19 @@ BITLY_TOKEN="<your_bitly_token>"
 
 Python3 должен быть уже установлен. 
 Затем используйте `pip` (или `pip3`, есть конфликт с Python2) для установки зависимостей:
-```
+```shell
 pip install -r requirements.txt
 ```
 
 ### Использование
 
-Запустите `main.py`.
-- При вводе обычной ссылки в консоль она будет сокращена до короткой вида `https://bit.ly/xxxxxxx`.
-- При вводе короткой ссылки в консоль вида `https://bit.ly/xxxxxxx` будет показано количество переходов по ней.
-- При некорректном вводе вы получите сообщение об ошибке.
+```shell
+python3 main.py <user_url>
+```
+
+- Если `<user_url>` является обычной ссылкой, то она будет сокращена до вида `https://bit.ly/xxxxxxx`.
+- Если `<user_url>` уже является короткой ссылкой вида `https://bit.ly/xxxxxxx`, будет показано количество переходов по ней.
+- Во всех остальных случаях вы получите сообщение об ошибке.
 
 ### Цель проекта
 

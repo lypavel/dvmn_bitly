@@ -1,5 +1,6 @@
 import requests as rq
 import os
+import argparse
 from urllib.parse import urlparse
 from dotenv import load_dotenv
 
@@ -40,21 +41,35 @@ def is_bitlink(url: str, headers: dict) -> bool:
     return response.ok
 
 
-def main():
+def create_parser() -> None:
+    parser = argparse.ArgumentParser(
+        description="\
+            Программа сокращает вашу длинную ссылку с помощью Bitly \
+            и выводит статистику кликов по уже сокращённой ссылке. \
+        "
+    )
+    parser.add_argument("user_url", help="Ваша ссылка")
+
+    return parser
+
+
+def main() -> None:
     load_dotenv()
 
     headers = {
         "Authorization": f"Bearer {os.environ["BITLY_TOKEN"]}"
     }
 
-    user_url = input("Введите ссылку: ")
+    parser = create_parser()
+    args = parser.parse_args()
+    user_url = args.user_url
 
     if is_bitlink(user_url, headers):
         clicks_count = count_clicks(user_url, headers)
-        print(f"Количество переходов: {clicks_count}")
+        print(f"Количество переходов по ссылке битли: {clicks_count}")
     else:
         shortened_link = shorten_link(user_url, headers)
-        print(f"Сокращённая ссылка: {shortened_link}")
+        print(shortened_link)
 
 
 if __name__ == "__main__":
