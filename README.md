@@ -15,13 +15,13 @@ where `<your_bitly_token>` is your token.
 
 Python3 should already be installed. 
 Use `pip` (or `pip3`, if there is a conflict with Python2) to install dependencies:
-```shell
+```
 pip install -r requirements.txt
 ```
 
 ### Usage
 
-```shell
+```
 python3 main.py <user_url>
 ```
 
@@ -51,13 +51,13 @@ BITLY_TOKEN="<your_bitly_token>"
 
 Python3 должен быть уже установлен. 
 Затем используйте `pip` (или `pip3`, есть конфликт с Python2) для установки зависимостей:
-```shell
+```
 pip install -r requirements.txt
 ```
 
 ### Использование
 
-```shell
+```
 python3 main.py <user_url>
 ```
 
